@@ -1,50 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="../resources/secure_app.css">
-    <link rel="icon" type="image/svg" href="../resources/Header_Lock_Image.svg">
-    <meta charset="utf-8" />
-    <title>Secure ED. - Forgot Password</title>
-</head>
-
-<body>
-<div id="wrapper">
-    <header>
-        <table class="header_table">
-            <tbody>
-            <tr>
-                <td class="lock"><img src="../resources/Header_Lock_Image.svg" style="width:9vh;" alt="Header_lock"></td>
-                <td class="title"><b>Secure ED.</b></td>
-                <td class="header_table_cell"></td>
-            </tr>
-            </tbody>
-        </table>
-    </header>
-
+<?php $pageTitle = "Forgot Password";
+$showLogout = false;
+$showDashboard = false;
+?>
+<?php include "includes/header.php"; ?>
     <main>
-
-        <!--Heading-->
         <h1>Forgot Password</h1>
-        <div class=horizontal_line>
-            <hr>
-        </div>
+        <div class="horizontal_line"><hr></div>
 
-        <div id =ForgotPasswordContent style="text-align:center">
+        <div class="text-center">
             <?php
-            //check url to see if emailcheck failed
-            $url = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-            if ("emailcheck=fail" == parse_url($url, PHP_URL_QUERY))
-            {
-                echo "The email is invalid.";
+            $url =
+                (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on"
+                    ? "https"
+                    : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+            if ("emailcheck=fail" == parse_url($url, PHP_URL_QUERY)) {
+                echo '<div class="alert alert-error">The email is invalid.</div>';
             }
             ?>
-            <div class="spacer">Please enter your email:</div>
+            <p class="spacer">Please enter your email:</p>
             <form action="../src/ForgotPasswordLogic.php" method="POST">
-                <label for="email">Email:&nbsp;&nbsp;</label>
-                <input type="text" id="email" name="email"> <br>
-                <input type="submit" id="submit" value ="Submit">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="email">
+                <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
     </main>
-</div>
-</body>
+<?php include "includes/footer.php"; ?>

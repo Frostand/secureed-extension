@@ -1,71 +1,32 @@
 <?php
-//Access Control
-
-session_start(); //required to bring session variables into context
-
-if (!(isset($_SESSION['email']) && !empty($_SESSION['email']))) //check that session exists and is nonempty
-{
+session_start();
+if (!isset($_SESSION["email"]) || empty($_SESSION["email"])) {
     http_response_code(403);
-    die('Forbidden');
+    die("Forbidden");
 }
+$pageTitle = "Enter Grades";
+$showLogout = true;
+$showDashboard = true;
 ?>
+<?php include "includes/header.php"; ?>
+    <main>
+        <h1>Enter Grades</h1>
+        <div class="horizontal_line"><hr></div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="../resources/secure_app.css">
-    <link rel="icon" type="image/svg" href="../resources/Header_Lock_Image.svg">
-    <script async src="../resources/nav.js"></script>
-    <meta charset="utf-8" />
-    <title>Secure ED. - Enter Grades</title>
-</head>
+        <div class="text-center">
+            <form action="../src/EnterGradesUpdateLogic.php" method="POST" enctype="multipart/form-data">
+                <div class="enter_grades_input" style="text-align:left;">
+                    <label for="crn">Course ID</label>
+                    <input type="text" name="crn" id="crn">
 
-<body>
-    <div id="wrapper">
-        <header>
-            <table class="header_table">
-                <tbody>
-                <tr>
-                    <td class="lock"><img src="../resources/Header_Lock_Image.svg" style="width:9vh;" alt="Header_lock"></td>
-                    <td class="title"><b>Secure ED.</b></td>
-                    <td class="header_table_cell"></td>
-                </tr>
-                </tbody>
-            </table>
-        </header>
+                    <input type="hidden" name="MAX_FILE_SIZE" value="9437184000">
+                    <label for="file">Upload Grade File</label>
+                    <input type="file" name="file" id="file">
 
-        <!--Navigation Buttons-->
-        <nav>
-            <button class="button_large" type="button" onclick="toDashboard();">Dashboard</button>
-            <button class="button_large" type="button" onclick="toLogout();">Log Out</button>
-        </nav>
-
-        <main>
-
-            <!--Heading-->
-            <h1>Enter Grades</h1>
-            <div class="horizontal_line">
-                <hr>
-            </div>
-
-            <div style="text-align:center">
-                <div style="text-align:center;">
-                    <form action="../src/EnterGradesUpdateLogic.php" method="POST" enctype="multipart/form-data">
-                        <div class="enter_grades_input" style="text-align:left">
-                            Course ID: <input type="text" name="crn" id="crn"/>
-                            <input type="hidden" name="MAX_FILE_SIZE" value="9437184000" />
-                            <input type="file" name="file" id="file"/>
-
-
-
-                            <input type="submit" name="submit" id="submit" value="Submit">&nbsp;&nbsp;&nbsp;&nbsp;
-                            <input type="button" value="Cancel" onclick=" location.href = 'dashboard.php'">
-
-                        </div>
-                    </form>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-danger" onclick="location.href='dashboard.php'">Cancel</button>
                 </div>
-            </div>
-        </main>
-    </div>
-</body>
-</html>
+            </form>
+        </div>
+    </main>
+<?php include "includes/footer.php"; ?>

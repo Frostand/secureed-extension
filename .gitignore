@@ -1,0 +1,49 @@
+# IDE
+.DS_Store
+.idea/
+
+# Understand Anything
+.understand-anything/
+
+# Conductor
+.conductor/
+
+# Database files
+app/SecureEd-1.0-master/app/db/persistentconndb.sqlite
+
+# Temporary / upload files
+app/SecureEd-1.0-master/app/resources/tmp.txt
+app/SecureEd-1.0-master/app/uploads/
+
+# Binaries (bundled PHP runtime for Windows)
+app/SecureEd-1.0-master/app/*.exe
+app/SecureEd-1.0-master/app/*.dll
+app/SecureEd-1.0-master/app/ext/
+app/SecureEd-1.0-master/app/sasl2/
+app/SecureEd-1.0-master/app/bin/
+app/SecureEd-1.0-master/app/dev/
+app/SecureEd-1.0-master/app/lib/
+app/SecureEd-1.0-master/app/pharcommand.phar
+app/SecureEd-1.0-master/app/phar.phar.bat
+app/SecureEd-1.0-master/app/deplister.exe
+app/SecureEd-1.0-master/app/*.lib
+app/SecureEd-1.0-master/app/*.pdb
+app/SecureEd-1.0-master/app/license.txt
+app/SecureEd-1.0-master/app/news.txt
+app/SecureEd-1.0-master/app/php.ini*
+app/SecureEd-1.0-master/app/*.bat
+
+# User Manual PDFs (keep the proposal/reference)
+app/SecureEd-1.0-master/User Manual.pdf
+
+# Placeholder index.php guards (not needed, just directory guards)
+app/SecureEd-1.0-master/app/bin/index.php
+app/SecureEd-1.0-master/app/config/index.php
+app/SecureEd-1.0-master/app/db/index.php
+app/SecureEd-1.0-master/app/dev/index.php
+app/SecureEd-1.0-master/app/ext/index.php
+app/SecureEd-1.0-master/app/extras/index.php
+app/SecureEd-1.0-master/app/lib/index.php
+app/SecureEd-1.0-master/app/resources/index.php
+app/SecureEd-1.0-master/app/src/index.php
+app/SecureEd-1.0-master/app/test/index.php
