@@ -1,5 +1,6 @@
 services:
-  app:
+  secureed:
+    container_name: secureed-extension
     build: .
     ports:
       - "8000:8000"

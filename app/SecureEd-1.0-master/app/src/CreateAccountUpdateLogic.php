@@ -106,8 +106,6 @@ try {
     if (!$results) {
         throw new Exception("Create account failed");
     } else {
-        //backup database
-        $db->backup($db, "temp", $GLOBALS['dbPath']);
         //redirect
         header("Location: ../public/dashboard.php");
     }

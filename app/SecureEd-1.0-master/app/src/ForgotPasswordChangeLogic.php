@@ -23,9 +23,6 @@ try {
             $query = "UPDATE User SET Password='$HashedNewPass' WHERE Email ='$email' AND '$NewPassword' = '$NewPasswordConfirm'";
             $results = $db->exec($query);
 
-            //backup database
-            $db->backup($db, "temp", $GLOBALS['dbPath']);
-
             header("Location: ../public/index.php");
         }
         else

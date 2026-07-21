@@ -2,6 +2,16 @@
 try{
     session_start();
 
+    if (
+        !isset($_SESSION['email']) ||
+        empty($_SESSION['email']) ||
+        !isset($_SESSION['acctype']) ||
+        $_SESSION['acctype'] != 3
+    ) {
+        http_response_code(403);
+        die('Forbidden');
+    }
+
     /*Get DB connection*/
     require_once "../src/DBController.php";
 
@@ -29,8 +39,6 @@ try{
     }
     else
     {
-        //backup database
-        $db->backup($db, "temp", $GLOBALS['dbPath']);
         //redirect
         header("Location: ../public/course_search.php");
     }

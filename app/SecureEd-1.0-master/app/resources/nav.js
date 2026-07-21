@@ -1,11 +1,15 @@
 function toDashboard (){
-    location.href = 'dashboard.php'; //only found in other public files
+    if (window.location.pathname.indexOf('/labs/') !== -1) {
+        location.href = '../dashboard.php';
+    } else {
+        location.href = 'dashboard.php';
+    }
 }
 
 function toLogout (){
-    location.href = '../src/Logout.php'; //only found in other public files
+    location.href = '../src/logout.php'; //only found in other public files
 }
 
 function toIndex (){
-    location.href = '../public/Index.php'; //only found in test files
+    location.href = '../public/index.php'; //only found in test files
 }

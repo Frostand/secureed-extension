@@ -78,6 +78,8 @@ function submitAccount() //checks for basic errors when submitting
  }
  if(cansubmit)
  {
-  accform.submit();
+  return true;
  }
+
+ return false;
 }

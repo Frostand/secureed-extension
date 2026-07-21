@@ -1,59 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="../resources/secure_app.css">
-    <link rel="icon" type="image/svg" href="../resources/Header_Lock_Image.svg">
-    <meta charset="utf-8" />
-    <title>Secure ED. - Login</title>
-</head>
-
-<body>
-  <div id="wrapper">
-    <header>
-	  <table class="header_table">
-	    <tbody>
-		  <tr>
-              <td class="lock"><img src="../resources/Header_Lock_Image.svg" style="width:9vh;" alt="Header_lock"></td>
-              <td class="title"><b>Secure ED.</b></td>
-              <td class="header_table_cell"></td>
-		  </tr>
-		</tbody>
-	  </table>
-    </header>
-
+<?php
+$pageTitle = "Secure ED. - Login";
+$showLogout = false;
+$showDashboard = false;
+?>
+<?php include "includes/header.php"; ?>
     <main>
+        <div class="page-heading">
+            <p class="eyebrow">Student information security lab</p>
+            <h1>Log in to Secure ED.</h1>
+            <p class="page-intro">Use the seeded accounts to explore the portal, then open a lab to study one weakness at a time.</p>
+        </div>
 
-        <!--Heading-->
-		<h1>Log In</h1>
-		<div class=horizontal_line>
-			<hr>
-		</div>
-        <br><br>
+        <?php if (($_GET["login"] ?? "") === "fail"): ?>
+            <div class="alert alert-error">The username or password is invalid.</div>
+        <?php endif; ?>
 
-        <div style="text-align:center">
-            <div class = "login">
-                <?php
-                $url =
-                    (isset($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] === "on"
-                        ? "https"
-                        : "http") .
-                    "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-                if ("login=fail" == parse_url($url, PHP_URL_QUERY)) {
-                    echo "The username/password is invalid.";
-                }
-                ?>
-                <form action="../src/login.php" method="POST">
-                    <label style="float: left" for="username">Username:&nbsp;&nbsp;</label>
-                    <input type="text" id="username" name="username"><br><br>
-                    <label style="float: left" for="password">Password:&nbsp;&nbsp;</label>
-                    <input type="password" id="password" name="password" ><br><br>
-                    <span style="float: left"><a href="ForgotPassword.php">[Forgot password?]</a></span>
-                    <input type="submit" value="Submit">
-                </form>
+        <div class="login text-center">
+            <form action="../src/login.php" method="POST" class="stacked-form">
+                <label for="username">Email address</label>
+                <input type="email" id="username" name="username" autocomplete="username" required>
+
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" autocomplete="current-password" required>
+
+                <button class="btn btn-primary" type="submit">Sign in</button>
+            </form>
+
+            <div class="login-links">
+                <a href="ForgotPassword.php">Forgot password?</a>
+                <a href="labs/index.php">Open lab exercises</a>
             </div>
         </div>
     </main>
-
-  </div>
-</body>
-</html>
+<?php include "includes/footer.php"; ?>

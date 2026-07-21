@@ -193,7 +193,7 @@ $showDashboard = true;
             </div>
 
             <div style="text-align:left;">
-                <button type="submit" class="btn btn-primary" onclick="submitAccount()">Submit</button>
+                <button type="submit" form="accform" class="btn btn-primary" onclick="return submitAccount()">Save changes</button>
                 <button type="button" class="btn btn-danger" onclick="location.href='user_search.php'">Cancel</button>
             </div>
         </div>

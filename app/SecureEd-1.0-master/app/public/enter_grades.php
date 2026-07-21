@@ -4,6 +4,10 @@ if (!isset($_SESSION["email"]) || empty($_SESSION["email"])) {
     http_response_code(403);
     die("Forbidden");
 }
+if (!isset($_SESSION["acctype"]) || $_SESSION["acctype"] != 2) {
+    http_response_code(403);
+    die("Forbidden");
+}
 $pageTitle = "Enter Grades";
 $showLogout = true;
 $showDashboard = true;
@@ -23,7 +27,7 @@ $showDashboard = true;
                     <label for="file">Upload Grade File</label>
                     <input type="file" name="file" id="file">
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" name="submit" class="btn btn-primary">Upload grades</button>
                     <button type="button" class="btn btn-danger" onclick="location.href='dashboard.php'">Cancel</button>
                 </div>
             </form>

@@ -1,101 +1,57 @@
 <?php
-//Access Control
+session_start();
 
-session_start(); //required to bring session variables into context
-
-if (!isset($_SESSION['email']) or (empty($_SESSION['email']))) //check that session exists and is nonempty
-{
+if (!isset($_SESSION['email']) || empty($_SESSION['email'])) {
     http_response_code(403);
     die('Forbidden');
 }
+
+$roles = [
+    1 => ["Admin", "Manage accounts and review the student directory.", [
+        ["Create account", "create_account.php"],
+        ["User search", "user_search.php"],
+    ]],
+    2 => ["Faculty", "Upload grade records for your course sections.", [
+        ["Enter grades", "enter_grades.php"],
+    ]],
+    3 => ["Student", "Search the catalog and enroll in an available section.", [
+        ["Course search", "course_search.php"],
+    ]],
+];
+
+$accountType = (int) ($_SESSION['acctype'] ?? 0);
+if (!isset($roles[$accountType])) {
+    http_response_code(403);
+    die('Forbidden');
+}
+
+[$roleName, $roleDescription, $actions] = $roles[$accountType];
+$pageTitle = "Secure ED. - {$roleName} Dashboard";
+$showLogout = true;
+$showDashboard = false;
 ?>
+<?php include "includes/header.php"; ?>
+    <main>
+        <div class="page-heading">
+            <p class="eyebrow"><?php echo htmlspecialchars($roleName); ?> workspace</p>
+            <h1><?php echo htmlspecialchars($roleName); ?> dashboard</h1>
+            <p class="page-intro"><?php echo htmlspecialchars($roleDescription); ?></p>
+        </div>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <link rel="stylesheet" href="../resources/secure_app.css">
-    <link rel="icon" type="image/svg" href="../resources/Header_Lock_Image.svg">
-    <script async src="../resources/nav.js"></script>
-    <meta charset="utf-8" />
-    <?php
-      if($_SESSION['acctype']===1) //admin
-      {
-          echo "<title>Secure ED. - Admin Dashboard</title>";
-      }
-      else if($_SESSION['acctype']===2) //faculty
-      {
-          echo "<title>Secure ED. - Faculty Dashboard</title>";
-      }
-      else if($_SESSION['acctype']===3) //student
-      {
-          echo "<title>Secure ED. - Student Dashboard</title>";
-      }
-      ?>
+        <div class="dashboard-grid">
+            <?php foreach ($actions as [$label, $href]): ?>
+                <a class="dashboard-card" href="<?php echo htmlspecialchars($href); ?>">
+                    <span class="card-kicker">Portal action</span>
+                    <strong><?php echo htmlspecialchars($label); ?></strong>
+                    <span class="card-arrow" aria-hidden="true">→</span>
+                </a>
+            <?php endforeach; ?>
 
-</head>
-<body>
-  <div id="wrapper">
-    <header>
-	  <table class="header_table">
-	    <tbody>
-		  <tr>
-              <td class="lock"><img src="../resources/Header_Lock_Image.svg" style="width:9vh;" alt="Header_lock"></td>
-			  <td class="title"><b>Secure ED.</b></td>
-              <td class="header_table_cell"></td>
-		  </tr>
-		</tbody>
-	  </table>
-    </header>
-
-      <!--Navigation Buttons-->
-      <nav>
-          <button class="button_large" type="button" onclick="toLogout();">Log Out</button>
-      </nav>
-
-      <?php
-      if($_SESSION['acctype']===1) //admin
-      {
-          echo "
-            <main>          
-                <h1>Admin Dashboard</h1>
-                <div class=horizontal_line>
-                    <hr>
-                </div>
-                <div>
-                    <button class=\"button_large\" type=\"button\" onclick=\"location.href = 'create_account.php'\">Create Account</button>
-                </div>
-                <br>
-                <button class=\"button_large\" type=\"button\" onclick=\"location.href = 'user_search.php'\">User Search</button>
-            </main>";
-      }
-      else if($_SESSION['acctype']===2) //faculty
-      {
-        echo "
-           <main>         
-                <h1>Faculty Dashboard</h1>
-                <div class=horizontal_line>
-                    <hr>
-                </div>
-                <div>
-                    <button class=\"button_large\" type=\"button\" onclick=\"location.href = 'enter_grades.php'\">Enter Grades</button>
-                </div>
-            </main>";
-      }
-      else if($_SESSION['acctype']===3) //student
-      {
-          echo "
-           <main>        
-                <h1>Student Dashboard</h1>
-                <div class=horizontal_line>
-                    <hr>
-                </div>
-                <div>
-                    <button class=\"button_large\" type=\"button\" onclick=\"location.href = 'course_search.php'\">Course Search</button>
-                </div>
-            </main>";
-      }
-    ?>
-  </div>
-</body>
-</html>
-
+            <a class="dashboard-card dashboard-card-lab" href="labs/index.php">
+                <span class="card-kicker">Learn by doing</span>
+                <strong>Open lab exercises</strong>
+                <span class="card-arrow" aria-hidden="true">→</span>
+            </a>
+        </div>
+    </main>
+<?php include "includes/footer.php"; ?>

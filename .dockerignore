@@ -1,0 +1,12 @@
+app/SecureEd-1.0-master/app/db/persistentconndb.sqlite
+app/SecureEd-1.0-master/app/resources/tmp.txt
+app/SecureEd-1.0-master/app/uploads/
+
+# Windows-only bundled runtime files are not used by the Linux image.
+app/SecureEd-1.0-master/app/*.exe
+app/SecureEd-1.0-master/app/*.dll
+app/SecureEd-1.0-master/app/ext/
+app/SecureEd-1.0-master/app/bin/
+app/SecureEd-1.0-master/app/dev/
+app/SecureEd-1.0-master/app/lib/
+app/SecureEd-1.0-master/app/sasl2/

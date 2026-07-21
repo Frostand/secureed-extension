@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="SecureEd is a small PHP and SQLite application for learning web security." />
+    <title>SecureEd — Learn security by tracing the flow</title>
+    <style>
+        :root {
+            --ink: #10223f;
+            --muted: #53657c;
+            --paper: #f5f8fb;
+            --card: #ffffff;
+            --line: #d7e2eb;
+            --teal: #0d9488;
+            --teal-dark: #0f766e;
+            --mint: #e9fbf7;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, sans-serif;
+            line-height: 1.6;
+        }
+        a { color: var(--teal-dark); }
+        .site-shell { width: min(1100px, calc(100% - 2rem)); margin: 0 auto; }
+        .site-header { display: flex; justify-content: space-between; gap: 1rem; padding: 1.25rem 0; }
+        .brand { color: var(--ink); font-weight: 800; letter-spacing: .03em; text-decoration: none; }
+        .site-nav { display: flex; flex-wrap: wrap; gap: 1rem; font-size: .92rem; }
+        .hero { display: grid; grid-template-columns: 1.05fr .95fr; gap: 3rem; align-items: center; padding: 4rem 0 3rem; }
+        .eyebrow { color: var(--teal-dark); font-size: .76rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+        h1 { max-width: 650px; margin: .4rem 0 1rem; font-size: clamp(2.4rem, 6vw, 5rem); line-height: .98; letter-spacing: -.055em; }
+        h2 { margin-top: 0; font-size: 1.45rem; }
+        .lede { max-width: 620px; color: var(--muted); font-size: 1.1rem; }
+        .actions { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }
+        .button { display: inline-block; padding: .7rem 1rem; border: 1px solid var(--teal); border-radius: 8px; background: var(--teal); color: #fff; font-weight: 700; text-decoration: none; }
+        .button.secondary { background: transparent; color: var(--teal-dark); }
+        .preview { padding: 1rem; border: 1px solid var(--line); border-radius: 18px; background: var(--card); box-shadow: 0 18px 50px rgba(16, 34, 63, .12); }
+        .preview img { display: block; width: 100%; height: auto; }
+        .section { padding: 3rem 0; border-top: 1px solid var(--line); }
+        .section-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+        .card { padding: 1.35rem; border: 1px solid var(--line); border-radius: 12px; background: var(--card); }
+        .card p { color: var(--muted); margin-bottom: 0; }
+        .lab-label { display: inline-block; margin-bottom: .7rem; padding: .2rem .5rem; border-radius: 5px; background: var(--mint); color: var(--teal-dark); font-size: .78rem; font-weight: 800; }
+        .setup { display: grid; grid-template-columns: .8fr 1.2fr; gap: 2rem; align-items: start; }
+        pre { overflow-x: auto; margin: 0; padding: 1rem; border-radius: 10px; background: var(--ink); color: #d7f8f0; }
+        footer { padding: 2rem 0 3rem; color: var(--muted); font-size: .9rem; }
+        @media (max-width: 760px) {
+            .hero, .setup { grid-template-columns: 1fr; }
+            .section-grid { grid-template-columns: 1fr; }
+            .site-header { align-items: flex-start; flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+<div class="site-shell">
+    <header class="site-header">
+        <a class="brand" href="index.html">SECURE ED / EXTENSION</a>
+        <nav class="site-nav" aria-label="Primary navigation">
+            <a href="#labs">Labs</a>
+            <a href="#setup">Setup</a>
+            <a href="https://github.com/onniegit/SecureEd-1.0" target="_blank" rel="noreferrer">Source repository</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div>
+                <p class="eyebrow">A small portal with a visible lesson inside it</p>
+                <h1>Learn security by tracing the flow.</h1>
+                <p class="lede">SecureEd is a PHP and SQLite student portal designed for hands-on security learning. Follow a normal account flow, open a focused lab, and see exactly where an insecure assumption changes the outcome.</p>
+                <div class="actions">
+                    <a class="button" href="#setup">Run with Docker</a>
+                    <a class="button secondary" href="https://github.com/onniegit/SecureEd-1.0/blob/main/User%20Manual.pdf" target="_blank" rel="noreferrer">Read the user manual</a>
+                </div>
+            </div>
+            <figure class="preview">
+                <img src="assets/dashboard-preview.svg" alt="Illustrated SecureEd dashboard with portal actions and vulnerability labs" />
+            </figure>
+        </section>
+
+        <section class="section" id="labs">
+            <p class="eyebrow">Three focused exercises</p>
+            <h2>Small enough to understand. Real enough to remember.</h2>
+            <div class="section-grid">
+                <article class="card"><span class="lab-label">CWE-640</span><h3>Weak password recovery</h3><p>See how a predictable reset flow can let an attacker choose a new password without a secret token.</p></article>
+                <article class="card"><span class="lab-label">CWE-613</span><h3>Insufficient session expiration</h3><p>Simulate an old session and observe what happens when protected pages only check that it exists.</p></article>
+                <article class="card"><span class="lab-label">CWE-384</span><h3>Session fixation</h3><p>Choose a known session ID and watch it remain attached after login when regeneration is omitted.</p></article>
+            </div>
+        </section>
+
+        <section class="section setup" id="setup">
+            <div>
+                <p class="eyebrow">Start in two minutes</p>
+                <h2>Run the app, then follow the evidence.</h2>
+                <p>From the repository root, start Docker and open the local portal. The database is seeded at startup for repeatable classroom exercises.</p>
+                <p><a href="#labs">Review the labs</a> · <a href="https://github.com/onniegit/SecureEd-1.0" target="_blank" rel="noreferrer">Source repository</a></p>
+            </div>
+            <pre><code>docker compose up --build
+
+# open http://localhost:8000</code></pre>
+        </section>
+    </main>
+
+    <footer>
+        SecureEd is an intentionally insecure training application. Keep the demonstrations isolated from production systems.
+    </footer>
+</div>
+</body>
+</html>
