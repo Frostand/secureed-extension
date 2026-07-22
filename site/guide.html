@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Beginner setup and lab notes for the SecureEd Extension project." />
+    <title>SecureEd beginner guide</title>
+    <style>
+        :root { --ink: #10223f; --muted: #53657c; --paper: #f5f8fb; --line: #d7e2eb; --teal: #0f766e; }
+        * { box-sizing: border-box; }
+        body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.65; }
+        main { width: min(760px, calc(100% - 2rem)); margin: 0 auto; padding: 2rem 0 4rem; }
+        a { color: var(--teal); }
+        h1 { margin-bottom: .4rem; font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.05; }
+        h2 { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
+        .lede { color: var(--muted); font-size: 1.08rem; }
+        .note { padding: 1rem; border-left: 4px solid var(--teal); background: #fff; }
+        code { padding: .12rem .35rem; border-radius: 4px; background: #e7edf3; }
+        pre { overflow-x: auto; padding: 1rem; border-radius: 8px; background: var(--ink); color: #d7f8f0; }
+    </style>
+</head>
+<body>
+<main>
+    <p><a href="index.html">← Back to the project page</a></p>
+    <h1>Beginner guide</h1>
+    <p class="lede">Start the project, try one normal portal task, and then work through the security labs one at a time.</p>
+
+    <div class="note"><strong>Keep this local.</strong> The app contains insecure code on purpose and should not be placed on a public server.</div>
+
+    <h2>1. Start the project</h2>
+    <p>Install Docker Desktop, open a terminal in the project folder, and run:</p>
+    <pre><code>docker compose up --build</code></pre>
+    <p>Open the app at <a href="http://localhost:8000">localhost:8000</a>. The companion page is at <a href="http://localhost:8080">localhost:8080</a>.</p>
+
+    <h2>2. Try the portal</h2>
+    <p>Sign in as <code>admin@email.com</code> with <code>Password1</code>. Open User Search and run a search. You can also try the faculty account <code>scienceguy@email.com</code> / <code>Password2</code> or student account <code>student@email.com</code> / <code>Password5</code>.</p>
+
+    <h2>3. CWE-640: weak password recovery</h2>
+    <ol>
+        <li>Open Lab Exercises and choose CWE-640.</li>
+        <li>Enter a sample email such as <code>student@email.com</code>.</li>
+        <li>Notice that the reset URL only contains the email. It has no random secret token.</li>
+        <li>Open the URL and set a new password.</li>
+    </ol>
+    <p>The problem is that anyone who can guess an account email can build the same link.</p>
+
+    <h2>4. CWE-613: session expiration</h2>
+    <ol>
+        <li>Sign in and open the CWE-613 lab.</li>
+        <li>Click <strong>Pretend session is very old</strong>.</li>
+        <li>Go back to the dashboard. The old session still works.</li>
+    </ol>
+    <p>A real app should check an inactivity or absolute timeout before accepting an old session.</p>
+
+    <h2>5. CWE-384: session fixation</h2>
+    <ol>
+        <li>Open the CWE-384 lab and keep the prefilled session ID.</li>
+        <li>Sign in with a sample account.</li>
+        <li>The app keeps the chosen ID instead of generating a new one after login.</li>
+    </ol>
+    <p>If an attacker already knows that ID, they may be able to reuse the signed-in session.</p>
+
+    <h2>6. Stop and reset</h2>
+    <p>Press <code>Control+C</code> in the Docker terminal. Starting the project again resets the teaching database, so the exercises are repeatable.</p>
+</main>
+</body>
+</html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content="SecureEd is a small PHP and SQLite application for learning web security." />
-    <title>SecureEd — Learn security by tracing the flow</title>
+    <title>SecureEd Extension — Web security learning project</title>
     <style>
         :root {
             --ink: #10223f;
@@ -62,29 +62,30 @@
         <nav class="site-nav" aria-label="Primary navigation">
             <a href="#labs">Labs</a>
             <a href="#setup">Setup</a>
-            <a href="https://github.com/onniegit/SecureEd-1.0" target="_blank" rel="noreferrer">Source repository</a>
+            <a href="guide.html">Beginner guide</a>
+            <a href="https://github.com/Frostand/secureed-extension" target="_blank" rel="noreferrer">Source repository</a>
         </nav>
     </header>
 
     <main>
         <section class="hero">
             <div>
-                <p class="eyebrow">A small portal with a visible lesson inside it</p>
-                <h1>Learn security by tracing the flow.</h1>
-                <p class="lede">SecureEd is a PHP and SQLite student portal designed for hands-on security learning. Follow a normal account flow, open a focused lab, and see exactly where an insecure assumption changes the outcome.</p>
+                <p class="eyebrow">A school project for hands-on security practice</p>
+                <h1>Learn web security with a school portal.</h1>
+                <p class="lede">SecureEd is a small PHP and SQLite student portal. Try a normal account task, open one of the labs, and see what happens when the login or session code is insecure.</p>
                 <div class="actions">
                     <a class="button" href="#setup">Run with Docker</a>
-                    <a class="button secondary" href="https://github.com/onniegit/SecureEd-1.0/blob/main/User%20Manual.pdf" target="_blank" rel="noreferrer">Read the user manual</a>
+                    <a class="button secondary" href="guide.html">Read the beginner guide</a>
                 </div>
             </div>
             <figure class="preview">
-                <img src="assets/dashboard-preview.svg" alt="Illustrated SecureEd dashboard with portal actions and vulnerability labs" />
+                <img src="assets/dashboard.png" alt="SecureEd admin dashboard with account, search, and lab actions" />
             </figure>
         </section>
 
         <section class="section" id="labs">
-            <p class="eyebrow">Three focused exercises</p>
-            <h2>Small enough to understand. Real enough to remember.</h2>
+            <p class="eyebrow">Three new labs</p>
+            <h2>Try each weakness one at a time.</h2>
             <div class="section-grid">
                 <article class="card"><span class="lab-label">CWE-640</span><h3>Weak password recovery</h3><p>See how a predictable reset flow can let an attacker choose a new password without a secret token.</p></article>
                 <article class="card"><span class="lab-label">CWE-613</span><h3>Insufficient session expiration</h3><p>Simulate an old session and observe what happens when protected pages only check that it exists.</p></article>
@@ -94,10 +95,10 @@
 
         <section class="section setup" id="setup">
             <div>
-                <p class="eyebrow">Start in two minutes</p>
-                <h2>Run the app, then follow the evidence.</h2>
-                <p>From the repository root, start Docker and open the local portal. The database is seeded at startup for repeatable classroom exercises.</p>
-                <p><a href="#labs">Review the labs</a> · <a href="https://github.com/onniegit/SecureEd-1.0" target="_blank" rel="noreferrer">Source repository</a></p>
+                <p class="eyebrow">Quick setup</p>
+                <h2>Run the project with Docker.</h2>
+                <p>From the repository root, start Docker and open the local portal. The sample database resets at startup so the exercises can be repeated.</p>
+                <p><a href="guide.html">Read the full guide</a> · <a href="https://github.com/Frostand/secureed-extension" target="_blank" rel="noreferrer">View this project on GitHub</a></p>
             </div>
             <pre><code>docker compose up --build
 

@@ -18,7 +18,7 @@ function fetch() {
 
     // (B) AJAX SEARCH REQUEST
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "../src/UserSearchLogic.php", true);
+    xhr.open('POST', "../src/usersearchlogic.php", true);
     xhr.onload = function () {
         //there must be no other echos except the JSON file or JSON.parse fails
         var results = JSON.parse(this.response),
@@ -47,7 +47,7 @@ function fetch() {
                         if(res['DOB'] !== "") //make sure DOB isn't empty or it will crash
                         {
                             fixedDOB = dateFromUTC(res['DOB'], '-'); //create a Date object using SQLite's format
-                            DOB = fixedDOB.getMonth() + '/' + fixedDOB.getDate() + '/' + fixedDOB.getFullYear();
+                            DOB = (fixedDOB.getMonth() + 1) + '/' + fixedDOB.getDate() + '/' + fixedDOB.getFullYear();
                         }
                         else
                         {
@@ -59,7 +59,7 @@ function fetch() {
                                          <td class="search_results_output">${DOB}</td>
                                          <td class="search_results_output" id="email"><input type="hidden" value="${res['Email']}" name="email">${res['Email']}</input></td> 
                                          <td class="search_results_output">${fixedStudentYear}</td>
-                                         <td class="search_results_output"><button name="Edit" id="Edit" type="submit">Edit</button></td>
+                                         <td class="search_results_output"><button name="Edit" type="submit" class="btn btn-primary">Edit</button></td>
                                          </tr></table></form>`;
                     }
                     else
@@ -67,7 +67,7 @@ function fetch() {
                             if(res['DOB'] !== "") //make sure DOB isn't empty or it will crash
                             {
                                 fixedDOB = dateFromUTC(res['DOB'], '-'); //create a Date object using SQLite's format
-                                DOB = fixedDOB.getMonth() + '/' + fixedDOB.getDate() + '/' + fixedDOB.getFullYear();
+                                DOB = (fixedDOB.getMonth() + 1) + '/' + fixedDOB.getDate() + '/' + fixedDOB.getFullYear();
                             }
                             else
                             {
@@ -78,7 +78,7 @@ function fetch() {
                                          <td class="search_results_output">${DOB}</td>
                                          <td class="search_results_output" id="email"><input type="hidden" value="${res['Email']}" name="email">${res['Email']}</input></td> 
                                          <td class="search_results_output">${res['Rank']}</td>
-                                         <td class="search_results_output"><button name="Edit" id="Edit" type="submit">Edit</button></td>
+                                         <td class="search_results_output"><button name="Edit" type="submit" class="btn btn-primary">Edit</button></td>
                                          </tr></table></form>`;
                         }
 
@@ -106,8 +106,8 @@ function dateFromUTC( dateAsString, ymdDelimiter ) {
     //only gets year month and day from db
     return new Date( Date.UTC(
         parseInt( parts[1] )
-        , parseInt( parts[2], 10 )
-        , parseInt( parts[3], 10 ) + 1
+        , parseInt( parts[2], 10 ) - 1
+        , parseInt( parts[3], 10 )
         , 0
         , 0
         , 0

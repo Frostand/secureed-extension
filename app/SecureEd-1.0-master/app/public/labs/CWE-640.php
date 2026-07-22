@@ -63,7 +63,7 @@ if ($step === "reset" && isset($_GET["user"])) {
     }
 }
 
-    if ($step === "done" && isset($_GET["email"])) {
+if ($step === "done" && isset($_GET["email"])) {
     $targetEmail = htmlspecialchars(strtolower(trim($_GET["email"])));
     $feedback = "Password update completed for " . $targetEmail . ".";
     $feedbackClass = "alert-success";

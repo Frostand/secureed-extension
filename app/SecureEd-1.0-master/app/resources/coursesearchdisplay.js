@@ -8,7 +8,7 @@ function fetch() {
 
     // (B) AJAX SEARCH REQUEST
     var xhr = new XMLHttpRequest();
-    xhr.open('POST', "../src/CourseSearchLogic.php", true);
+    xhr.open('POST', "../src/coursesearchlogic.php", true);
     xhr.onload = function () {
         //there must be no other echos except the JSON file or JSON.parse fails
         var results = JSON.parse(this.response),
@@ -37,7 +37,7 @@ function fetch() {
                                          <td class="course_search_results_output">${res['Email']}</td> 
                                          <td class="course_search_results_output"><input type="hidden" value="${res['Semester']}" name="semester"><input type="hidden" value="${res['Year']}" name="year">${res['Semester'] + ' ' + res['Year']}</td> 
                                          <td class="course_search_results_output">${res['Location']}</td>
-                                         <td class="course_search_results_output"><button name="Enroll" id="Enroll" type="submit">Enroll</button></td>
+                                         <td class="course_search_results_output"><button name="Enroll" type="submit" class="btn btn-primary">Enroll</button></td>
                                          </tr></table></form>`;
                 wrapper.appendChild(row);
             }

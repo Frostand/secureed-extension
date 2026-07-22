@@ -8,7 +8,7 @@ $showDashboard = false;
         <h1>Secure ED - Vulnerability Labs</h1>
         <div class="horizontal_line"><hr></div>
 
-        <p class="subtitle">Each page below is a beginner-friendly demo. Run the flow, then read <code>docs/beginner-guide.md</code> from the project folder.</p>
+        <p class="page-intro">Each page below is a beginner-friendly demo. Run the flow, then read <code>docs/beginner-guide.md</code> from the project folder.</p>
 
         <section class="lab-grid">
             <article class="lab-card">

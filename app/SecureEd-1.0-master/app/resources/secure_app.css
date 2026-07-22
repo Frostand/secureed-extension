@@ -55,6 +55,8 @@ body {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="date"],
+input[type="file"],
 select,
 textarea {
     padding: 0.5rem 0.75rem;
@@ -307,8 +309,7 @@ main {
 }
 
 #wrapper {
-    max-width: 150vh;
-    margin: auto;
+    width: min(1040px, calc(100% - 2rem));
 }
 /* End standard page styling */
 
@@ -430,23 +431,26 @@ main {
     /* also used for course search */
     background-color: whitesmoke;
     text-align: left;
-    width: fit-content;
-    padding: 2vw;
-    padding-top: 1vw;
-    margin-bottom: 72px;
+    width: 100%;
+    padding: 1.25rem;
+    margin-bottom: 1.5rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .search_filter {
     text-align: right;
-    padding-left: 2vw;
-    font-size: x-large;
+    padding: 0.5rem;
+    font-size: 1rem;
 }
 
 .search_results {
     background-color: whitesmoke;
     text-align: left;
-    padding: 2vw;
-    padding-top: 1vw;
+    padding: 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
 }
 
 #results span {
@@ -461,7 +465,7 @@ main {
 
 .search_filter_input {
     text-align: left;
-    font-size: x-large;
+    font-size: 1rem;
 }
 /* End user search page styling */
 
@@ -469,16 +473,18 @@ main {
 .course_search_results {
     background-color: whitesmoke;
     text-align: left;
-    padding: 2vw;
-    padding-top: 1vw;
+    padding: 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
 }
 
 /* Course enroll results */
 .course_enroll_results {
     background-color: whitesmoke;
     text-align: left;
-    padding: 2vw;
-    padding-top: 1vw;
+    padding: 1.25rem;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
 }
 
 /* Start edit account page styling */
@@ -486,16 +492,18 @@ main {
     /* also used for create account */
     background-color: whitesmoke;
     text-align: left;
-    width: fit-content;
-    padding: 2vw;
-    padding-top: 1vw;
+    width: 100%;
+    padding: 1.25rem;
     margin-bottom: 18px;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    box-sizing: border-box;
 }
 
 .edit_acc_label {
     text-align: right;
-    padding-left: 2vw;
-    font-size: x-large;
+    padding-left: 0.5rem;
+    font-size: 1rem;
 }
 /* End edit account page styling */
 
@@ -523,3 +531,115 @@ main {
     margin-right: 0.5rem;
 }
 /* End enter grades page styling */
+
+/* Shared cleanup for the imported table-based forms. */
+.search_pane table,
+.edit_acc_pane table,
+.course_search_table,
+.search_table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.search_pane td,
+.edit_acc_pane td {
+    padding: 0.45rem;
+    vertical-align: middle;
+}
+
+.course_search_table,
+.search_table {
+    table-layout: fixed;
+}
+
+.course_search_table td,
+.search_table td {
+    padding: 0.7rem 1rem;
+    overflow-wrap: anywhere;
+}
+
+#results form:nth-child(even),
+#results > span:nth-child(even) {
+    background: #f1f5f9;
+}
+
+.lab-card + .lab-card {
+    margin-top: 1rem;
+}
+
+.lab-card form,
+main > form {
+    display: grid;
+    max-width: 520px;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.lab-card .btn,
+main > form .btn {
+    width: fit-content;
+    margin-top: 0.5rem;
+}
+
+@media (max-width: 720px) {
+    #wrapper {
+        width: min(100% - 1rem, 1040px);
+    }
+
+    .app-header .header_table {
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 0 0.75rem;
+    }
+
+    .lock {
+        padding-left: 0;
+    }
+
+    .header_table_cell {
+        padding-right: 0;
+    }
+
+    .subtitle {
+        display: none;
+    }
+
+    main {
+        padding: 1rem;
+    }
+
+    .login {
+        min-width: 0;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    .login-links {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 0.4rem;
+    }
+
+    .search_pane,
+    .edit_acc_pane,
+    .search_results,
+    .course_search_results,
+    .course_enroll_results {
+        overflow-x: auto;
+    }
+
+    .search_pane table,
+    .edit_acc_pane table {
+        min-width: 620px;
+    }
+
+    .data-table,
+    .course_search_table,
+    .search_table {
+        min-width: 680px;
+    }
+
+    .main-nav .btn {
+        margin-bottom: 0.5rem;
+    }
+}

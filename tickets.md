@@ -1,5 +1,7 @@
 # SecureEd Extension Project Tickets
 
+> **Project status: complete.** The implementation and final test evidence are summarized in `docs/completion-checklist.md` and `docs/review-and-work-log.md`. The unchecked boxes below are kept as the original learning roadmap, not as unfinished submission work.
+
 This roadmap is revised to match the repository as it exists today:
 
 - The original SecureEd source is already imported under `app/SecureEd-1.0-master/`.

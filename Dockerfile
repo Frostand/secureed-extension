@@ -1,15 +1,15 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm
 
-WORKDIR /app
+WORKDIR /var/www/html
 
-# Copy the entire app directory
-COPY app/SecureEd-1.0-master/app/ /app/
+# The PHP 8.2 FPM image already includes the SQLite3 and PDO SQLite modules
+# used by this project, so no extra package manager step is needed.
 
-# Ensure runtime directories exist
-RUN mkdir -p /app/db /app/uploads
+COPY app/SecureEd-1.0-master/app/ /var/www/html/
 
-# Expose port 8000
-EXPOSE 8000
+RUN mkdir -p /var/www/html/db /var/www/html/uploads \
+    && chown -R www-data:www-data /var/www/html/db /var/www/html/uploads /var/www/html/resources
 
-# Initialize database then start the built-in server
-CMD ["sh", "-c", "php src/startup.php && php -S 0.0.0.0:8000 -t public/ router.php"]
+# Reset the classroom database once when the PHP container starts, then hand
+# requests to PHP-FPM. Nginx is the public-facing service in docker-compose.yml.
+CMD ["sh", "-c", "php src/startup.php && touch resources/tmp.txt && chown -R www-data:www-data db uploads resources/tmp.txt && exec php-fpm"]

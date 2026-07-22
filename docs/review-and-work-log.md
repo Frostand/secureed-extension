@@ -1,58 +1,40 @@
 # Review and Work Log
 
-## What I reviewed first
+## What I checked
 
-- Repository structure and `tickets.md` plan map
-- Docker config (`Dockerfile`, `docker-compose.yml`)
-- Core flow files:
-  - `app/public/index.php` (login page)
-  - `app/public/dashboard.php`
-  - `app/src/login.php`, `app/src/logout.php`
-  - password recovery flow files
-- Session and header usage across public pages
-- Database startup path (`app/src/startup.php`, `app/config/config.php`)
+- project proposal and ticket list
+- Docker, PHP, Nginx, and SQLite startup
+- login and logout
+- admin, faculty, and student dashboards
+- user search and course search
+- password recovery and grade upload pages
+- CWE-640, CWE-613, and CWE-384 labs
+- desktop and phone layouts
+- companion project website and beginner guide
 
-## What I changed
+## Main fixes
 
-- Fixed shared navigation script errors in `app/resources/nav.js`
-  - `Logout.php` → `logout.php`
-  - `Index.php` → `index.php`
-- Added shared include shell:
-  - `app/public/includes/header.php`
-  - `app/public/includes/footer.php`
-- Added small styling updates for a more consistent look in `app/resources/secure_app.css`
-- Improved Docker clarity:
-  - added runtime directory creation in Dockerfile
-  - excluded local database and Windows-only runtime files from the Docker context
-  - removed automatic restart so the intentional seed reset is explicit
-- Added beginner-friendly docs:
-  - `README.md`
-  - `docs/beginner-guide.md`
-  - `docs/review-and-work-log.md`
-- Added project companion page:
-  - `site/index.html`
-- Added three CWE teaching labs:
-  - `app/public/labs/CWE-640.php`
-  - `app/public/labs/CWE-613.php`
-  - `app/public/labs/CWE-384.php`
-- Added lab index:
-  - `app/public/labs/index.php`
-- Added vulnerability demo login handler:
-  - `app/src/CWE384Login.php`
+- Replaced the PHP development server container with Nginx and PHP-FPM.
+- Added a separate local container for the static project website.
+- Blocked direct web access to the database, uploads, config, and test folders.
+- Fixed the user-search and course-search JavaScript URLs. The old capital letters worked on some computers but failed on Linux.
+- Fixed missing search fields that caused PHP warnings and broken JSON.
+- Corrected the date conversion used in user search results.
+- Fixed CSS, JavaScript, logout, and form paths on pages inside the `labs/` folder.
+- Added mobile styles for dashboards, forms, tables, and navigation.
+- Added a real dashboard screenshot to the companion site.
+- Added a beginner webpage and updated the GitHub project link.
+- Added `scripts/smoke-test.sh` so the main project flows can be checked again.
 
-## Notes from review
+## Final checks completed
 
-- The new labs are intentionally insecure and should stay separate from production use.
-- Existing original SecureEd pages are still used for normal teaching flows.
-- I intentionally kept the lab updates small so the project remains easy to read and learn from.
+- `docker compose build` completed successfully.
+- Nginx, PHP-FPM, and the project-site containers started successfully.
+- Every PHP file passed `php -l` in the container.
+- The smoke test passed for all three roles and all three labs.
+- The CWE-384 form was submitted in a real browser and reached the admin dashboard.
+- Desktop screenshots were checked for the login, dashboard, lab list, and project website.
+- Phone screenshots were checked for the dashboard and project website.
+- The Nginx route for the SQLite database returned `404` as expected.
 
-## Verification completed
-
-- Built the Docker image and linted every PHP file with `php -l` inside the image.
-- Verified SQLite extensions are available in the image.
-- Verified startup reseeds the expected six database tables on Linux.
-- Verified the login, dashboard, CWE-613, and CWE-384 routes over HTTP.
-- Corrected CWE-640's database include path and the grade upload form/handler.
-- Added backend role checks to search, enrollment, account-edit, and grade mutation handlers.
-
-The application still intentionally contains insecure training examples. Keep the normal app and its test pages isolated from production systems.
+The vulnerable examples are still insecure on purpose. The fixes above make the project run reliably; they do not turn the training labs into production security code.

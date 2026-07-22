@@ -23,7 +23,7 @@ $showFailure = isset($_GET["result"]) && $_GET["result"] === "fail";
             </p>
         </div>
 
-        <form action="../src/CWE384Login.php" method="POST">
+        <form action="../../src/CWE384Login.php" method="POST">
             <label for="session_id">Choose a session id</label>
             <input
                 type="text"

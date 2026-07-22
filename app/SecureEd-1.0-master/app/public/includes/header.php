@@ -3,14 +3,17 @@ $pageTitle = $pageTitle ?? "Secure ED";
 $showLogout = $showLogout ?? false;
 $showDashboard = $showDashboard ?? false;
 $isAuthenticated = isset($_SESSION["email"]) && !empty($_SESSION["email"]);
+$isLabPage = strpos($_SERVER["SCRIPT_NAME"] ?? "", "/public/labs/") !== false;
+$resourcePath = $isLabPage ? "../../resources" : "../resources";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="../resources/secure_app.css">
-    <link rel="icon" type="image/svg" href="../resources/Header_Lock_Image.svg">
-    <script defer src="../resources/nav.js"></script>
+    <link rel="stylesheet" href="<?php echo $resourcePath; ?>/secure_app.css">
+    <link rel="icon" type="image/svg+xml" href="<?php echo $resourcePath; ?>/Header_Lock_Image.svg">
+    <script defer src="<?php echo $resourcePath; ?>/nav.js"></script>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
 </head>
 <body>
@@ -18,7 +21,7 @@ $isAuthenticated = isset($_SESSION["email"]) && !empty($_SESSION["email"]);
     <header class="app-header">
 	  <div class="header_table">
         <div class="lock">
-            <img src="../resources/Header_Lock_Image.svg" alt="Secure ED lock icon">
+            <img src="<?php echo $resourcePath; ?>/Header_Lock_Image.svg" alt="Secure ED lock icon">
         </div>
         <div class="title">Secure ED.</div>
         <div class="header_table_cell">

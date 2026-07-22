@@ -7,7 +7,11 @@ function toDashboard (){
 }
 
 function toLogout (){
-    location.href = '../src/logout.php'; //only found in other public files
+    if (window.location.pathname.indexOf('/labs/') !== -1) {
+        location.href = '../../src/logout.php';
+    } else {
+        location.href = '../src/logout.php';
+    }
 }
 
 function toIndex (){

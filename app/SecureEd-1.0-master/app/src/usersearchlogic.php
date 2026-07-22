@@ -15,13 +15,13 @@ try {
     require_once "../src/DBController.php";
 
     /*Get information from the search (post) request*/
-    $acctype = $_POST['acctype'];
-    $fname = $_POST['fname'];
-    $lname = $_POST['lname'];
-    $dob = $_POST['dob'];
-    $email = $_POST['email'];
-    $studentyear = $_POST['studentyear'];
-    $facultyrank = $_POST['facultyrank'];
+    $acctype = $_POST['acctype'] ?? '';
+    $fname = $_POST['fname'] ?? '';
+    $lname = $_POST['lname'] ?? '';
+    $dob = $_POST['dob'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $studentyear = $_POST['studentyear'] ?? '';
+    $facultyrank = $_POST['facultyrank'] ?? '';
 
     if($acctype==null)
     {throw new Exception("input did not exist");}
@@ -100,7 +100,7 @@ try {
         $results = $stmt->execute();
     }
 
-    global $jsonArray;
+    $jsonArray = [];
 
     while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
         $jsonArray[] = $row;

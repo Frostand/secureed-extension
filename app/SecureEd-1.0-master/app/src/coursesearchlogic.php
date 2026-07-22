@@ -15,10 +15,10 @@ try {
     require_once "../src/DBController.php";
 
     /*Get information from the search (post) request*/
-    $courseid = $_POST['courseid'];
-    $coursename = $_POST['coursename'];
-    $semester = $_POST['semester'];
-    $department = $_POST['department'];
+    $courseid = $_POST['courseid'] ?? '';
+    $coursename = $_POST['coursename'] ?? '';
+    $semester = $_POST['semester'] ?? '';
+    $department = $_POST['department'] ?? '';
 
     //set default values if blank
     if($courseid=="")
@@ -49,6 +49,7 @@ try {
 
     $results = $db->query($query);
 
+    $jsonArray = [];
     while ($row = $results->fetchArray(SQLITE3_ASSOC)) {
         $jsonArray[] = $row;
     }
