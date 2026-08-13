@@ -6,22 +6,38 @@
     <meta name="description" content="Beginner setup and lab notes for the SecureEd Extension project." />
     <title>SecureEd beginner guide</title>
     <style>
-        :root { --ink: #10223f; --muted: #53657c; --paper: #f5f8fb; --line: #d7e2eb; --teal: #0f766e; }
         * { box-sizing: border-box; }
-        body { margin: 0; color: var(--ink); background: var(--paper); font-family: Inter, ui-sans-serif, system-ui, sans-serif; line-height: 1.65; }
-        main { width: min(760px, calc(100% - 2rem)); margin: 0 auto; padding: 2rem 0 4rem; }
-        a { color: var(--teal); }
-        h1 { margin-bottom: .4rem; font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.05; }
-        h2 { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid var(--line); }
-        .lede { color: var(--muted); font-size: 1.08rem; }
-        .note { padding: 1rem; border-left: 4px solid var(--teal); background: #fff; }
-        code { padding: .12rem .35rem; border-radius: 4px; background: #e7edf3; }
-        pre { overflow-x: auto; padding: 1rem; border-radius: 8px; background: var(--ink); color: #d7f8f0; }
+        body {
+            margin: 0;
+            color: #222;
+            background: #dfe5ea;
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+        }
+        main {
+            width: min(780px, calc(100% - 20px));
+            margin: 15px auto;
+            padding: 20px;
+            border: 1px solid #999;
+            background: #fff;
+        }
+        a { color: #0056a6; }
+        h1, h2 { font-family: Georgia, "Times New Roman", serif; }
+        h1 { margin: 5px 0 8px; font-size: 32px; }
+        h2 { margin-top: 28px; padding-top: 10px; border-top: 1px solid #aaa; font-size: 22px; }
+        .lede { color: #444; }
+        .note { padding: 10px; border: 1px solid #c3a03b; background: #fff8d6; }
+        code { padding: 1px 4px; border: 1px solid #ccc; background: #eee; }
+        pre { overflow-x: auto; padding: 10px; border: 1px solid #333; background: #eee; color: #111; }
+        @media (max-width: 600px) {
+            main { width: calc(100% - 10px); margin: 5px auto; padding: 14px; }
+            h1 { font-size: 27px; }
+        }
     </style>
 </head>
 <body>
 <main>
-    <p><a href="index.html">← Back to the project page</a></p>
+    <p><a href="index.html">Back to the project page</a></p>
     <h1>Beginner guide</h1>
     <p class="lede">Start the project, try one normal portal task, and then work through the security labs one at a time.</p>
 
@@ -62,6 +78,9 @@
 
     <h2>6. Stop and reset</h2>
     <p>Press <code>Control+C</code> in the Docker terminal. Starting the project again resets the teaching database, so the exercises are repeatable.</p>
+
+    <h2>Project files</h2>
+    <p><a href="https://github.com/Frostand/secureed-extension">View the source on GitHub</a> or <a href="https://github.com/Frostand/secureed-extension/archive/refs/heads/main.zip">download the Docker version as a ZIP file</a>.</p>
 </main>
 </body>
 </html>

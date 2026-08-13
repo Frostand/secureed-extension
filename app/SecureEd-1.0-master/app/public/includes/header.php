@@ -9,7 +9,7 @@ $resourcePath = $isLabPage ? "../../resources" : "../resources";
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <link rel="stylesheet" href="<?php echo $resourcePath; ?>/secure_app.css">
+    <link rel="stylesheet" href="<?php echo $resourcePath; ?>/secure_app.css?v=4">
     <link rel="icon" type="image/svg+xml" href="<?php echo $resourcePath; ?>/Header_Lock_Image.svg">
     <script defer src="<?php echo $resourcePath; ?>/nav.js"></script>
     <meta charset="utf-8" />

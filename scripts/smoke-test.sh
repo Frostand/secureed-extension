@@ -5,8 +5,16 @@ set -eu
 APP_URL="${APP_URL:-http://localhost:8000}"
 SITE_URL="${SITE_URL:-http://localhost:8080}"
 TEST_DIR="$(mktemp -d)"
+PASSWORD_CHANGED=0
 
 cleanup() {
+    if [ "$PASSWORD_CHANGED" = "1" ]; then
+        curl -fsS \
+            -d "newpassword=Password5" \
+            -d "confirm=Password5" \
+            -o /dev/null \
+            "$APP_URL/public/labs/CWE-640.php?step=reset&user=student@email.com" || true
+    fi
     rm -rf "$TEST_DIR"
 }
 trap cleanup EXIT
@@ -35,10 +43,25 @@ login() {
         "$APP_URL/src/login.php"
 }
 
+reset_lab_password() {
+    password="$1"
+
+    curl -fsS \
+        -d "newpassword=$password" \
+        -d "confirm=$password" \
+        -o /dev/null \
+        "$APP_URL/public/labs/CWE-640.php?step=reset&user=student@email.com"
+}
+
 echo "Checking the login page and project site..."
 check_page "$APP_URL/public/index.php" "Log in to Secure ED."
-check_page "$SITE_URL" "Learn web security with a school portal."
+curl -fsS -L \
+    -d "email=admin@email.com" \
+    "$APP_URL/src/ForgotPasswordLogic.php" | grep -Fq "How many siblings do you have?"
+check_page "$SITE_URL" "Practice web security in a fake school portal."
 check_page "$SITE_URL/guide.html" "Beginner guide"
+check_page "$SITE_URL" "Main learning goals"
+check_page "$SITE_URL" "Download Docker version (ZIP)"
 check_page "$APP_URL/resources/secure_app.css" "dashboard-grid"
 
 echo "Checking the admin portal and user search..."
@@ -77,6 +100,17 @@ check_page "$APP_URL/public/labs/CWE-384.php" "../../src/CWE384Login.php"
 curl -fsS \
     -d "email=student@email.com" \
     "$APP_URL/public/labs/CWE-640.php" | grep -Fq "No one-time token is used."
+
+reset_lab_password "SecureEdSmoke123"
+PASSWORD_CHANGED=1
+RESET_COOKIE="$TEST_DIR/reset.cookies"
+login "student@email.com" "SecureEdSmoke123" "$RESET_COOKIE"
+check_page "$APP_URL/public/dashboard.php" "Student dashboard" "$RESET_COOKIE"
+reset_lab_password "Password5"
+PASSWORD_CHANGED=0
+RESTORED_COOKIE="$TEST_DIR/restored.cookies"
+login "student@email.com" "Password5" "$RESTORED_COOKIE"
+check_page "$APP_URL/public/dashboard.php" "Student dashboard" "$RESTORED_COOKIE"
 
 curl -fsS -b "$ADMIN_COOKIE" -c "$ADMIN_COOKIE" \
     "$APP_URL/public/labs/CWE-613.php?mode=old" | grep -Fq "43200 minutes"

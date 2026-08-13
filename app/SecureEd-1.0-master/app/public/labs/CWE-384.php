@@ -39,7 +39,7 @@ $showFailure = isset($_GET["result"]) && $_GET["result"] === "fail";
         </form>
 
         <p style="margin-top: 1rem;">
-            Repro steps are in <code>docs/beginner-guide.md</code>.
+            <a href="http://localhost:8080/guide.html">Open the beginner guide</a> for the full steps.
         </p>
     </main>
 <?php include "../includes/footer.php"; ?>
